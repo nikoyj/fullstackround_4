@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/636cf1049c39532c2369432d
+Content-Type: application/json
+
+    {
+        "title": "Armottoman hieno blogi",
+        "author": "Osaispa jotain",
+        "url": "Armottomuus.com",
+        "likes": 50
+    }

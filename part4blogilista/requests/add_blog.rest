@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1b3JlcHV1cm8iLCJpZCI6IjYzNzIxMTllZWQzNGY5NzQ1NDNhZDFiMCIsImlhdCI6MTY2ODQyMzI3N30.6RU2s2JgslUFSyJrQXXGgbay0Yt7sNVFTT5ZGHl1uL0"
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1b3JlcHV1cm8iLCJpZCI6IjYzNzIxMTllZWQzNGY5NzQ1NDNhZDFiMCIsImlhdCI6MTY2ODU4ODg3NX0.ngdmfQB-E2jhVXH_xaVWeeL488KuYqV8Zc_s1RrJako
+    
     {
-      "title": "Fullstackopen",
-      "author": "fulleststack",
-      "url": "fullstack.open",
-      "likes": 420
+      "title": "Kurssi",
+      "author": "kurssinen",
+      "url": "Kurssikirja.fi",
+      "likes": 2
     }
