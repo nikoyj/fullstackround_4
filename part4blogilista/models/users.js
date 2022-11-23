@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   passwordHash: {
     type: String,
+    minlength: 3,
     required: true
   },
   blogs: [

@@ -3,8 +3,8 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1b3JlcHV1cm8iLCJpZCI6IjYzNzIxMTllZWQzNGY5NzQ1NDNhZDFiMCIsImlhdCI6MTY2ODU4ODg3NX0.ngdmfQB-E2jhVXH_xaVWeeL488KuYqV8Zc_s1RrJako
     
     {
-      "title": "Kurssi",
-      "author": "kurssinen",
-      "url": "Kurssikirja.fi",
-      "likes": 2
+      "title": "toimiikonyt",
+      "author": "miksi",
+      "url": "siksi.fi",
+      "likes": 1
     }

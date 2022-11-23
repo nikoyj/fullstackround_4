@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const Blog = require('../models/blogs')
 
@@ -30,17 +32,26 @@ test('a specific blog is within the returned blogs', async () => {
     'Kuumaa'
   )
 })
-
-test('a valid blog can be added ', async () => {
+describe("adding deleting or editing blogs", () => {
+  let token = null
+  beforeAll(async () => {
+    await User.deleteMany({})
+    await Blog.deleteMany({})
+    const passwordHash = await bcrypt.hash("password", 10)
+    const user = await new User({ username: "user", passwordHash, name: "user" }).save()
+    const userForToken = { username: user.username, id: user.id }
+    return (token = jwt.sign(userForToken, process.env.SECRET))
+  })
+  test('a valid blog can be added ', async () => {
   const newBlog = {
     title: 'New great blog',
     author: "Vili viiperi",
     url: 'NGB.com',
     likes: 4
   }
-
   await api
     .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
     .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
@@ -61,6 +72,7 @@ test('blog without content is not added', async () => {
 
   await api
     .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
     .send(newBlog)
     .expect(400)
 
@@ -82,6 +94,7 @@ test('Valid blogs should be added without an error', async() => {
 
     await api
     .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
     .send(toBeAdded)
     .expect(201)
 
@@ -97,6 +110,7 @@ test('Adding a blog without defining likes, will add it with 0 likes', async () 
 
     await api
     .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
     .send(toBeAdded)
     .expect(201)
 
@@ -112,11 +126,12 @@ test('Adding a blog without title and url results statuscode error 400', async (
 
     await api
     .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
     .send(toBeAdded)
     .expect(400)
 })
 
-test('Removing a blog works correctly', async () => {
+test('Removing a blog needs authorized login', async () => {
     const toBeAdded = {
         title:"Testinnimissä epäonnistunut",
         author: "Osaispa jotain",
@@ -124,19 +139,45 @@ test('Removing a blog works correctly', async () => {
     }
     await api
     .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
     .send(toBeAdded)
     .expect(201)
 
     const blogsAtEnd = await helper.blogsInDb()
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length +1)
     const added = await blogsAtEnd.find(blog => blog.title === toBeAdded.title)
+    tokeni = null
     await api
       .delete(`/api/blogs/${added.id}`)
+      .set("Authorization", `Bearer ${tokeni}`)
+      .expect(401)
+    const blogsAtEnd1 = await helper.blogsInDb()
+    expect(blogsAtEnd1).toHaveLength(helper.initialBlogs.length+1)
+  })
+  test('Removing a blog works correctly', async () => {
+    const toBeAdded = {
+        title:"Onnistuminen tutuksi",
+        author: "Onnistuispa",
+        url: "epäepäonnistus.com"
+    }
+    await api
+    .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
+    .send(toBeAdded)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length +1)
+    const added = await blogsAtEnd.find(blog => blog.title === toBeAdded.title)
+    await api
+      .delete(`/api/blogs/${added.id}`)
+      .set("Authorization", `Bearer ${token}`)
       .expect(204)
     const blogsAtEnd1 = await helper.blogsInDb()
     expect(blogsAtEnd1).toHaveLength(helper.initialBlogs.length)
-})
-test('Editing a blog works', async () => {
+  })
+  test('Editing a blog works', async () => {
     const toBeAdded = {
         title:"Testinnimissä epäonnistunut",
         author: "Osaispa jotain",
@@ -145,6 +186,7 @@ test('Editing a blog works', async () => {
     }
     await api
     .post('/api/blogs')
+    .set("Authorization", `Bearer ${token}`)
     .send(toBeAdded)
     .expect(201)
 
@@ -165,10 +207,11 @@ test('Editing a blog works', async () => {
     expect(blogsAtEnd1).toHaveLength(helper.initialBlogs.length+1)
     const theBlog = blogsAtEnd1.find(blog => blog.title === toBeAdded.title)
     expect(theBlog.likes).toBe(6)
+  })
 })
 
-const bcrypt = require('bcryptjs')
 const User = require('../models/users')
+const { config } = require('dotenv')
 
 
 describe('when there is initially one user at db', () => {

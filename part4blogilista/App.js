@@ -20,8 +20,8 @@ mongoose.connect(config.MONGODB_URI)
   .catch((error) => {
     logger.error('error connection to MongoDB:', error.message)
   })
-
 app.use(middleware.tokenExtractor)
+app.use(middleware.userExtractor)
 app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
