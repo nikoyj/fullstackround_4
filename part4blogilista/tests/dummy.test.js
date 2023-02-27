@@ -82,10 +82,9 @@ describe('total likes', () => {
     })
 
     test('when list has only one blog equals that', () => {
-        const blog = blogs[0]
-        const most = listHelper.favoriteBlog([blog])
+        const most = listHelper.favoriteBlog([blogs[0]])
         const result = blogs.find(blog => blog.likes === most)
-        expect(result).toEqual(blog)
+        expect(result).toEqual(blogs[0])
     })
 
     test('of a bigger list is calculated correctly', () => {
