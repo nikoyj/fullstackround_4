@@ -30,8 +30,9 @@ blogRouter.delete('/:id', async (request, response) => {
 })
 
 
-blogRouter.put('/:id', (request, response, next) => {
+blogRouter.put('/:id', async (request, response, next) => {
   const body = request.body
+  const user = request.user
 
   const blog = {
     title: body.title,
@@ -45,6 +46,7 @@ blogRouter.put('/:id', (request, response, next) => {
       response.json(updatedBlog)
     })
     .catch(error => next(error))
+    await user.save()
 })
 
 blogRouter.post('/', async  (request, response) => {

@@ -199,6 +199,7 @@ test('Removing a blog needs authorized login', async () => {
 
     await api
       .put(`/api/blogs/${added.id}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(edited)
       .expect(200)
       .expect('Content-Type', /application\/json/)

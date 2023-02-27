@@ -1,15 +1,5 @@
 const listHelper = require('../utils/list_helper')
 
-const listWithOneBlog = [
-    {
-      _id: '5a422aa71b54a676234d17f8',
-      title: 'Go To Statement Considered Harmful',
-      author: 'Edsger W. Dijkstra',
-      url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
-      likes: 5,
-      __v: 0
-    }
-  ]
   const blogs = [
       {
         _id: "5a422a851b54a676234d17f7",
@@ -76,8 +66,8 @@ describe('total likes', () => {
         expect(result).toBe(0)
       })
     test('when list has only one blog equals the likes of that', () => {
-      const result = listHelper.totalLikes(listWithOneBlog)
-      expect(result).toBe(5)
+      const result = listHelper.totalLikes([blogs[0]])
+      expect(result).toBe(7)
     })
     test('of a bigger list is calculated correctly', () => {
         const result = listHelper.totalLikes(blogs)
@@ -119,8 +109,7 @@ describe('Most blogs', () => {
     })
 
     test('when list has only one blog equals its author', () => {
-        const blog = blogs[0]
-        const result = listHelper.mostBlogs([blog])
+        const result = listHelper.mostBlogs([blogs[0]])
         expect(result).toEqual({
             author: "Michael Chan",
             blogs: 1
@@ -142,8 +131,7 @@ describe('Most likes', () => {
     })
 
     test('when list has only one blog equals its author', () => {
-        const blog = blogs[0]
-        const result = listHelper.mostLikes([blog])
+        const result = listHelper.mostLikes([blogs[0]])
         expect(result).toEqual({
             author: "Michael Chan",
             likes: 7

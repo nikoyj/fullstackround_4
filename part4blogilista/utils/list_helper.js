@@ -16,33 +16,26 @@ const mostBlogs = (blogs) => {
     if (blogs.length === 0) {
         return {}
     } else {
-        let counts = blogs.reduce((count, blog) => {
-            count[blog.author] = (count[blog.author] || 0) + 1
-            return count
+        const counts = blogs.reduce((author, blog) => {
+            author[blog.author] = (author[blog.author] || 0) + 1
+            return author
         }, {})
-        let max = Math.max(...Object.values(counts))
-        let mostFrequent = Object.keys(counts).filter(author => counts[author] === max)
-        return {
-            author: mostFrequent[0],
-            blogs: max
-        }
+
+        return Object.entries(counts).map(([author, blogs]) => ({ author, blogs })).sort((a, b) => b.blogs - a.blogs)[0]
     }
 }
 const mostLikes = (blogs) => {
     if (blogs.length === 0) {
         return {}
     } else {
-        let counts = blogs.reduce((count, blog) => {
-            count[blog.author] = (count[blog.author] || 0) + blog.likes
-            return count
+        const counts = blogs.reduce((author, blog) => {
+            author[blog.author] = (author[blog.author] || 0) + blog.likes
+            return author
         }, {})
-        let max = Math.max(...Object.values(counts))
-        let mostFrequent = Object.keys(counts).filter(author => counts[author] === max)
-        return {
-            author: mostFrequent[0],
-            likes: max
-        }
+
+        return Object.entries(counts).map(([author, likes]) => ({ author, likes })).sort((a, b) => b.likes - a.likes)[0]
     }
+
 }
   
   module.exports = {
