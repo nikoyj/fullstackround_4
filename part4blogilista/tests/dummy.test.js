@@ -51,40 +51,39 @@ const listHelper = require('../utils/list_helper')
       }  
     ]
     const empty = []
-
 test('dummy returns one', () => {
   const blogs = []
-
   const result = listHelper.dummy(blogs)
   expect(result).toBe(1)
 })
 
 describe('total likes', () => {
-    
     test('empty list 0', () => {
-        const result = listHelper.totalLikes([])
-        expect(result).toBe(0)
-      })
+      const result = listHelper.totalLikes([])
+      expect(result).toBe(0)
+    })
+
     test('when list has only one blog equals the likes of that', () => {
       const result = listHelper.totalLikes([blogs[0]])
       expect(result).toBe(7)
     })
+
     test('of a bigger list is calculated correctly', () => {
-        const result = listHelper.totalLikes(blogs)
-        expect(result).toBe(36)
-      })
+      const result = listHelper.totalLikes(blogs)
+      expect(result).toBe(36)
+    })
   })
 
   describe('Favorite blog', () => {
     test('of empty list is empty', () => {
-        const result = listHelper.favoriteBlog([])
-        expect(result).toEqual({})
+      const result = listHelper.favoriteBlog([])
+      expect(result).toEqual({})
     })
 
     test('when list has only one blog equals that', () => {
-        const most = listHelper.favoriteBlog([blogs[0]])
-        const result = blogs.find(blog => blog.likes === most)
-        expect(result).toEqual(blogs[0])
+      const most = listHelper.favoriteBlog([blogs[0]])
+      const result = blogs.find(blog => blog.likes === most)
+      expect(result).toEqual(blogs[0])
     })
 
     test('of a bigger list is calculated correctly', () => {
@@ -99,7 +98,6 @@ describe('total likes', () => {
             __v: 0
         })
     })
-
 })
 describe('Most blogs', () => {
     test('of empty list is empty', () => {

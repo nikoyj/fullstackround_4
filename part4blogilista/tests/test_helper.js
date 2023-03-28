@@ -19,7 +19,6 @@ const nonExistingId = async () => {
   const blog = new Blog({ title: 'willremovethissoon', author: "Vili viiperi", url: "title.com", likes: 2 })
   await blog.save()
   await blog.remove()
-
   return blog._id.toString()
 }
 
