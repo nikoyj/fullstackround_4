@@ -130,6 +130,19 @@ test('Adding a blog without title and url results statuscode error 400', async (
     .send(toBeAdded)
     .expect(400)
 })
+test('Adding a blog without token, causes error 401', async () => {
+  const toBeAdded = {
+    title:"Testinnimissä epäonnistunut",
+    author: "Osaispa jotain",
+    url: "epäonnistus.com",
+    likes: 4
+}
+  await api
+  .post('/api/blogs')
+  .set("Authorization", `Bearer eiollu`)
+  .send(toBeAdded)
+  .expect(401)
+})
 
 test('Removing a blog needs authorized login', async () => {
     const toBeAdded = {
