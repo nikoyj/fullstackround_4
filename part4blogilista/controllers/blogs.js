@@ -38,7 +38,8 @@ blogRouter.put('/:id', async (request, response, next) => {
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes
+    likes: body.likes,
+    comments: body.comments
   }
 
   Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
@@ -58,12 +59,16 @@ blogRouter.post('/', async  (request, response) => {
   if (!parts.likes) {
     parts.likes = 0
   }
+  if (!parts.comments) {
+    parts.comments = []
+  }
     const blog = new Blog({
       title: parts.title,
       author: parts.author,
       url: parts.url,
       likes: parts.likes,
-      user: user
+      user: user,
+      comments: parts.comments
     })
     const savedBlog = await blog.save()
     user.blogs = user.blogs.concat(savedBlog.id)  

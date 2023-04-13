@@ -1,10 +1,11 @@
-POST http://localhost:3003/api/blogs
+POST  http://localhost:3003/api/blogs 
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1b3JlcHV1cm8iLCJpZCI6IjYzNzIxMTllZWQzNGY5NzQ1NDNhZDFiMCIsImlhdCI6MTY2ODU4ODg3NX0.ngdmfQB-E2jhVXH_xaVWeeL488KuYqV8Zc_s1RrJako
-    
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1b3JlcHV1cm8iLCJpZCI6IjYzNzIxMTllZWQzNGY5NzQ1NDNhZDFiMCIsImlhdCI6MTY2OTIxOTE1MX0.Ow1xY1V1RXemOZ_uVUSjJ2YG560q-mMjSO_ihW_dcjc
+
     {
-      "title": "toimiikfwefweonyt",
-      "author": "mikwefwesi",
-      "url": "sikwefwefsi.fi",
-      "likes": 1
+        "title": "Kommenttien testaus backendissä2",
+        "author": "Minä itse tietenkin",
+        "url": "https://fullstackopen.com/osa7/tehtavia_blogilistan_laajennus2",
+        "likes": 4,
+        "comments": ["Tää vois vaikka toimia", "asdasdadada"]
     }
