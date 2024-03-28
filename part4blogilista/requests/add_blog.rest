@@ -1,6 +1,6 @@
 POST  http://localhost:3003/api/blogs 
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1b3JlcHV1cm8iLCJpZCI6IjYzNzIxMTllZWQzNGY5NzQ1NDNhZDFiMCIsImlhdCI6MTY2OTIxOTE1MX0.Ow1xY1V1RXemOZ_uVUSjJ2YG560q-mMjSO_ihW_dcjc
+Authorization: bearer 
 
     {
         "title": "Kommenttien testaus backendissä2",
